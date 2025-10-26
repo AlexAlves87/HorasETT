@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Calendar } from "@/components/ui/calendar";
@@ -75,6 +75,9 @@ const ParteDiario = () => {
     turno: "",
   });
 
+  // Ref para el formulario
+  const formRef = useRef<HTMLDivElement>(null);
+
   // Cargar turno predeterminado de la semana
   useEffect(() => {
     const savedDefaultShift = localStorage.getItem('weeklyDefaultShift');
@@ -121,6 +124,16 @@ const ParteDiario = () => {
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
     setSelectedDate(date);
+    
+    // Scroll al formulario en móvil
+    if (formRef.current && window.innerWidth < 1024) {
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 100);
+    }
   };
 
   const handleChange = (field: string, value: string | number) => {
@@ -244,13 +257,13 @@ const ParteDiario = () => {
                 Haz clic en cualquier día para registrar tus horas
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col items-center justify-center min-h-[500px]">
+            <CardContent className="flex flex-col items-center justify-center min-h-[400px] px-2 sm:px-6">
               <Calendar
                 mode="single"
                 selected={selectedDate}
                 onSelect={handleDateSelect}
                 locale={es}
-                className="rounded-md w-full"
+                className="rounded-md w-full max-w-full"
                 modifiers={modifiers}
                 modifiersClassNames={{
                   hasData: "day-with-data",
@@ -261,7 +274,7 @@ const ParteDiario = () => {
           </Card>
 
           {/* Formulario */}
-          <Card className="shadow-card">
+          <Card className="shadow-card" ref={formRef}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>{format(selectedDate, "d 'de' MMMM 'de' yyyy", { locale: es })}</span>
@@ -272,7 +285,7 @@ const ParteDiario = () => {
 
             <CardContent className="space-y-4">
               {/* Turno */}
-              <div className="space-y-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+              <div className="space-y-2 p-3 rounded-lg bg-primary/5 border border-primary/20" id="turno-section">
                 <Label htmlFor="turno" className="flex items-center gap-2 text-base font-semibold">
                   <Clock className="w-4 h-4" /> Turno de Trabajo
                   <span className="text-destructive">*</span>

@@ -299,7 +299,8 @@ All colors MUST be HSL.
 /* Tamaño base del calendario */
 .rdp {
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.5rem;
+  max-width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -312,11 +313,18 @@ All colors MUST be HSL.
   display: flex;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .rdp-month {
   width: 100%;
-  max-width: 550px;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .rdp-month {
+    max-width: 550px;
+  }
 }
 
 /* Header del mes */
@@ -328,7 +336,7 @@ All colors MUST be HSL.
 }
 
 .rdp-caption_label {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
   color: hsl(var(--foreground));
 }
@@ -372,24 +380,39 @@ All colors MUST be HSL.
 /* Tabla del calendario */
 .rdp-table {
   width: 100%;
+  max-width: 100%;
   border-collapse: separate;
-  border-spacing: 0.25rem;
+  border-spacing: 0.125rem;
+}
+
+@media (min-width: 640px) {
+  .rdp-table {
+    border-spacing: 0.25rem;
+  }
 }
 
 /* Cabeceras de días */
 .rdp-head_cell {
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.625rem;
   font-weight: 600;
   color: hsl(var(--muted-foreground));
-  padding: 0.5rem;
+  padding: 0.25rem 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  width: 14.285%; /* 100% / 7 días */
+}
+
+@media (min-width: 375px) {
+  .rdp-head_cell {
+    font-size: 0.75rem;
+  }
 }
 
 @media (min-width: 640px) {
   .rdp-head_cell {
     font-size: 0.875rem;
+    padding: 0.5rem;
   }
 }
 
@@ -398,6 +421,7 @@ All colors MUST be HSL.
   text-align: center;
   position: relative;
   padding: 0.125rem;
+  width: 14.285%; /* 100% / 7 días */
 }
 
 @media (min-width: 640px) {
@@ -407,10 +431,12 @@ All colors MUST be HSL.
 }
 
 .rdp-day {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 100%;
+  max-width: 2.25rem;
+  height: 2.25rem;
+  margin: 0 auto;
   border-radius: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -423,9 +449,17 @@ All colors MUST be HSL.
   border: 2px solid transparent;
 }
 
+@media (min-width: 375px) {
+  .rdp-day {
+    max-width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.875rem;
+  }
+}
+
 @media (min-width: 640px) {
   .rdp-day {
-    width: 3rem;
+    max-width: 3rem;
     height: 3rem;
     font-size: 1rem;
   }
@@ -433,7 +467,7 @@ All colors MUST be HSL.
 
 @media (min-width: 768px) {
   .rdp-day {
-    width: 3.5rem;
+    max-width: 3.5rem;
     height: 3.5rem;
     font-size: 1.125rem;
   }
@@ -503,15 +537,23 @@ All colors MUST be HSL.
 .day-with-note::after {
   content: "📝";
   position: absolute;
-  top: 0.125rem;
-  right: 0.125rem;
-  font-size: 0.75rem;
+  top: 0;
+  right: 0;
+  font-size: 0.625rem;
   line-height: 1;
   pointer-events: none;
 }
 
+@media (min-width: 375px) {
+  .day-with-note::after {
+    font-size: 0.75rem;
+  }
+}
+
 @media (min-width: 640px) {
   .day-with-note::after {
+    top: 0.125rem;
+    right: 0.125rem;
     font-size: 0.875rem;
   }
 }
@@ -549,8 +591,8 @@ All colors MUST be HSL.
 /* Touch target improvements for mobile */
 @media (max-width: 768px) {
   .rdp-day {
-    min-width: 2.5rem;
-    min-height: 2.5rem;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
   }
 }
 
@@ -559,5 +601,32 @@ All colors MUST be HSL.
   .rdp-day {
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+  }
+}
+
+/* Fix para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .rdp {
+    padding: 0.25rem;
+  }
+  
+  .rdp-table {
+    border-spacing: 0.0625rem;
+  }
+  
+  .rdp-head_cell {
+    font-size: 0.5625rem;
+    padding: 0.125rem 0;
+  }
+  
+  .rdp-day {
+    max-width: 2rem;
+    height: 2rem;
+    font-size: 0.6875rem;
+    border-radius: 0.375rem;
+  }
+  
+  .day-with-note::after {
+    font-size: 0.5rem;
   }
 }

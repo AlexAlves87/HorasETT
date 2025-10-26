@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 const Apoyo = () => {
   const KOFI_URL = "https://ko-fi.com/alexalves87";
-  const GITHUB_URL = "https://github.com/TU_USUARIO/horasett";
+  const GITHUB_URL = "https://github.com/AlexAlves87/HorasETT";
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyqOxqZYJODe4pjHDOHY-xyIQ7fgMPJ8LRMOsaXEtSFLD-PgvUDXc4n7aHn5hDe2EJS/exec";
   
   const widgetLoaded = useRef(false);

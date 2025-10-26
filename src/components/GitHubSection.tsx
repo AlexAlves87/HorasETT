@@ -6,7 +6,7 @@ interface GitHubSectionProps {
   repoUrl?: string;
 }
 
-const GitHubSection = ({ repoUrl = "https://github.com/TU_USUARIO/horasett" }: GitHubSectionProps) => {
+const GitHubSection = ({ repoUrl = "https://github.com/AlexAlves87/HorasETT" }: GitHubSectionProps) => {
   return (
     <Card className="shadow-card">
       <CardHeader>

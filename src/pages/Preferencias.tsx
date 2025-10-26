@@ -183,7 +183,7 @@ const Preferencias = () => {
             <Button
               variant="outline"
               className="gap-2"
-              onClick={() => window.open("https://github.com/horasett/horasett", "_blank")}
+              onClick={() => window.open("https://github.com/AlexAlves87/HorasETT", "_blank")}
             >
               <Github className="w-4 h-4" />
               Ver en GitHub
