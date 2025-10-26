@@ -1,0 +1,563 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Main backgrounds and text */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    /* Cards and elevated surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    /* Popovers and dropdowns */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    /* Primary: Professional blue */
+    --primary: 210 80% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 80% 38%;
+
+    /* Secondary: Blue-gray */
+    --secondary: 210 20% 92%;
+    --secondary-foreground: 215 25% 25%;
+
+    /* Muted: Subtle backgrounds */
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 15% 50%;
+
+    /* Accent: Success green */
+    --accent: 142 70% 45%;
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 142 70% 38%;
+
+    /* Warning: Soft orange */
+    --warning: 25 90% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Destructive: Error red */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 210 80% 45%;
+
+    /* Border radius */
+    --radius: 0.75rem;
+
+    /* Sidebar colors */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 25% 15%;
+    --sidebar-primary: 210 80% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 95%;
+    --sidebar-accent-foreground: 215 25% 25%;
+    --sidebar-border: 210 20% 88%;
+    --sidebar-ring: 210 80% 45%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 80% 45%) 0%, hsl(210 80% 55%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(142 70% 45%) 0%, hsl(142 70% 55%) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(210 20% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(210 20% 15% / 0.1), 0 2px 4px -2px hsl(210 20% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(210 20% 15% / 0.1), 0 4px 6px -4px hsl(210 20% 15% / 0.1);
+  }
+
+  .dark {
+    /* Main backgrounds and text */
+    --background: 215 28% 12%;
+    --foreground: 210 20% 95%;
+
+    /* Cards and elevated surfaces */
+    --card: 215 25% 16%;
+    --card-foreground: 210 20% 95%;
+
+    /* Popovers and dropdowns */
+    --popover: 215 25% 16%;
+    --popover-foreground: 210 20% 95%;
+
+    /* Primary: Lighter blue for dark mode */
+    --primary: 210 85% 60%;
+    --primary-foreground: 215 28% 12%;
+    --primary-hover: 210 85% 55%;
+
+    /* Secondary: Dark blue-gray */
+    --secondary: 215 20% 22%;
+    --secondary-foreground: 210 20% 95%;
+
+    /* Muted: Subtle dark backgrounds */
+    --muted: 215 20% 18%;
+    --muted-foreground: 215 10% 65%;
+
+    /* Accent: Success green (adjusted for dark) */
+    --accent: 142 65% 50%;
+    --accent-foreground: 215 28% 12%;
+    --accent-hover: 142 65% 45%;
+
+    /* Warning: Soft orange (adjusted for dark) */
+    --warning: 25 85% 60%;
+    --warning-foreground: 215 28% 12%;
+
+    /* Destructive: Error red (adjusted for dark) */
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 210 20% 95%;
+
+    /* Borders and inputs */
+    --border: 215 20% 22%;
+    --input: 215 20% 22%;
+    --ring: 210 85% 60%;
+
+    /* Sidebar colors */
+    --sidebar-background: 215 25% 16%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 210 85% 60%;
+    --sidebar-primary-foreground: 215 28% 12%;
+    --sidebar-accent: 215 20% 22%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 215 20% 22%;
+    --sidebar-ring: 210 85% 60%;
+
+    /* Shadows for dark mode */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -4px hsl(0 0% 0% / 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Smooth transitions for theme switching */
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  /* Gradiente animado de fondo */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: 
+      radial-gradient(circle at 20% 50%, hsl(210 80% 45% / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(142 70% 45% / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, hsl(25 90% 55% / 0.12) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(210 80% 45% / 0.05), hsl(142 70% 45% / 0.05));
+    background-size: 200% 200%;
+    animation: gradient-move 20s ease infinite;
+  }
+
+  .dark body::before {
+    background: 
+      radial-gradient(circle at 20% 50%, hsl(210 85% 60% / 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(142 65% 50% / 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, hsl(25 85% 60% / 0.10) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(210 85% 60% / 0.03), hsl(142 65% 50% / 0.03));
+    background-size: 200% 200%;
+  }
+
+  @keyframes gradient-move {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Glassmorphism utilities */
+  .glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .glass {
+    background: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+      0 8px 32px rgba(31, 38, 135, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .glass-card {
+    background: rgba(30, 30, 30, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-sidebar {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .glass-sidebar {
+    background: rgba(30, 30, 30, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .dark .glass-nav {
+    background: rgba(30, 30, 30, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .dark .glass-hover:hover {
+    background: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .dark .glow {
+    box-shadow: 0 0 25px hsl(var(--primary) / 0.4);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+  }
+
+  .dark .glow-accent {
+    box-shadow: 0 0 25px hsl(var(--accent) / 0.4);
+  }
+}
+
+/* ========================================
+   CALENDARIO MEJORADO - REACT-DAY-PICKER
+   ======================================== */
+
+/* Tamaño base del calendario */
+.rdp {
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .rdp {
+    padding: 1.5rem;
+  }
+}
+
+.rdp-months {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.rdp-month {
+  width: 100%;
+  max-width: 550px;
+}
+
+/* Header del mes */
+.rdp-caption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0 1rem;
+}
+
+.rdp-caption_label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+@media (min-width: 640px) {
+  .rdp-caption_label {
+    font-size: 1.25rem;
+  }
+}
+
+/* Botones de navegación */
+.rdp-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rdp-nav_button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: hsl(var(--muted-foreground));
+}
+
+@media (min-width: 640px) {
+  .rdp-nav_button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+.rdp-nav_button:hover {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--foreground));
+}
+
+/* Tabla del calendario */
+.rdp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0.25rem;
+}
+
+/* Cabeceras de días */
+.rdp-head_cell {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  padding: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 640px) {
+  .rdp-head_cell {
+    font-size: 0.875rem;
+  }
+}
+
+/* Celdas de días */
+.rdp-cell {
+  text-align: center;
+  position: relative;
+  padding: 0.125rem;
+}
+
+@media (min-width: 640px) {
+  .rdp-cell {
+    padding: 0.25rem;
+  }
+}
+
+.rdp-day {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  border: 2px solid transparent;
+}
+
+@media (min-width: 640px) {
+  .rdp-day {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .rdp-day {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.125rem;
+  }
+}
+
+/* Hover en días */
+.rdp-day:hover:not(.rdp-day_selected):not(.rdp-day_disabled) {
+  background-color: hsl(var(--secondary));
+  transform: scale(1.05);
+}
+
+@media (hover: none) {
+  .rdp-day:active:not(.rdp-day_selected):not(.rdp-day_disabled) {
+    transform: scale(0.95);
+  }
+}
+
+/* Día actual (hoy) */
+.rdp-day_today:not(.rdp-day_selected) {
+  border: 2px solid hsl(var(--primary));
+  font-weight: 700;
+}
+
+/* Día seleccionado */
+.rdp-day_selected {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  font-weight: 700;
+}
+
+.rdp-day_selected:hover {
+  background-color: hsl(var(--primary-hover)) !important;
+}
+
+/* Días deshabilitados */
+.rdp-day_disabled {
+  color: hsl(var(--muted-foreground) / 0.3);
+  cursor: not-allowed;
+}
+
+.rdp-day_disabled:hover {
+  background-color: transparent;
+  transform: none;
+}
+
+/* Días fuera del mes actual */
+.rdp-day_outside {
+  color: hsl(var(--muted-foreground) / 0.4);
+}
+
+/* ========================================
+   INDICADORES PERSONALIZADOS
+   ======================================== */
+
+/* Día con datos registrados */
+.day-with-data {
+  background-color: hsl(var(--primary) / 0.15) !important;
+  font-weight: 700 !important;
+  border: 2px solid hsl(var(--primary) / 0.3) !important;
+}
+
+.day-with-data:hover {
+  background-color: hsl(var(--primary) / 0.25) !important;
+}
+
+/* Día con notas - emoji en la esquina */
+.day-with-note::after {
+  content: "📝";
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .day-with-note::after {
+    font-size: 0.875rem;
+  }
+}
+
+/* Ajustes para cuando el día está seleccionado Y tiene nota */
+.rdp-day_selected.day-with-note::after {
+  filter: brightness(0) invert(1);
+}
+
+/* ========================================
+   MODO OSCURO
+   ======================================== */
+
+.dark .rdp-day {
+  color: hsl(var(--foreground));
+}
+
+.dark .rdp-day:hover:not(.rdp-day_selected):not(.rdp-day_disabled) {
+  background-color: hsl(var(--secondary));
+}
+
+.dark .rdp-day_today:not(.rdp-day_selected) {
+  border-color: hsl(var(--primary));
+}
+
+.dark .day-with-data {
+  background-color: hsl(var(--primary) / 0.2) !important;
+  border-color: hsl(var(--primary) / 0.5) !important;
+}
+
+/* ========================================
+   RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+/* Touch target improvements for mobile */
+@media (max-width: 768px) {
+  .rdp-day {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+}
+
+/* Prevent text selection on mobile */
+@media (hover: none) {
+  .rdp-day {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+}
